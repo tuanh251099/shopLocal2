@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using shopLocal.Data.Configuration;
 using shopLocal.Data.Entities;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,13 @@ namespace shopLocal.Data.EF
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new ProducConfiguration());
+            modelBuilder.ApplyConfiguration(new ProducConfiguration());
+            modelBuilder.ApplyConfiguration(new CategoryCongifuration());
+            modelBuilder.ApplyConfiguration(new ProductInCategoryConfiguraion());
+            modelBuilder.ApplyConfiguration(new OrderConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderDetailConfiguration());
+            // base.OnModelCreating(modelBuilder);
         }
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
