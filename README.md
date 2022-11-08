@@ -7,5 +7,6 @@
 - Microsoft.EntityFrameworkCore.Design
 - Microsoft.EntityFrameworkCore.Tools
 - Microsoft.EntityFrameworkCore
+- Microsoft.EntityFrameworkCore.Relational.Design
 ### How to configure and run 
 #### How to contribute
