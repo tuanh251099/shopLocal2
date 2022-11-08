@@ -17,13 +17,21 @@ namespace shopLocal.Data.EF
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new ProducConfiguration());
-            modelBuilder.ApplyConfiguration(new ProducConfiguration());
+            modelBuilder.ApplyConfiguration(new AppConfigConfiguration());
+            modelBuilder.ApplyConfiguration(new CartConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryCongifuration());
-            modelBuilder.ApplyConfiguration(new ProductInCategoryConfiguraion());
+            modelBuilder.ApplyConfiguration(new CategoryTranslationConfiguration());
+            modelBuilder.ApplyConfiguration(new ContactConfiguration());
+            modelBuilder.ApplyConfiguration(new LanguageConfiguration());
             modelBuilder.ApplyConfiguration(new OrderConfiguration());
             modelBuilder.ApplyConfiguration(new OrderDetailConfiguration());
-            // base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductInCategoryConfiguraion());
+            modelBuilder.ApplyConfiguration(new ProductTranslationConfiguration());
+            modelBuilder.ApplyConfiguration(new PromotionConfiguration());
+            modelBuilder.ApplyConfiguration(new TransactionConfiguration());
+
+        // base.OnModelCreating(modelBuilder);
         }
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
