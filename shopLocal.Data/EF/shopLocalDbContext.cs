@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 
 namespace shopLocal.Data.EF
 {
-    public class shopLocationDbContext : IdentityDbContext <AppUser, AppRole, Guid>
+    public class shopLocalDbContext : IdentityDbContext <AppUser, AppRole, Guid>
     {
-        public shopLocationDbContext(DbContextOptions options) : base(options)
+        public shopLocalDbContext(DbContextOptions options) : base(options)
         {
            
         }

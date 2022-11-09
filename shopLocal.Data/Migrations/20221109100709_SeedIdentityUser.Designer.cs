@@ -11,7 +11,7 @@ using shopLocal.Data.EF;
 
 namespace shopLocal.Data.Migrations
 {
-    [DbContext(typeof(shopLocationDbContext))]
+    [DbContext(typeof(shopLocalDbContext))]
     [Migration("20221109100709_SeedIdentityUser")]
     partial class SeedIdentityUser
     {
