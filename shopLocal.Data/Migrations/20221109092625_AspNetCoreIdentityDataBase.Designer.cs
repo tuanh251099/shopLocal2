@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using shopLocal.Data.EF;
 
@@ -11,9 +12,10 @@ using shopLocal.Data.EF;
 namespace shopLocal.Data.Migrations
 {
     [DbContext(typeof(shopLocationDbContext))]
-    partial class shopLocationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221109092625_AspNetCoreIdentityDataBase")]
+    partial class AspNetCoreIdentityDataBase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -97,13 +99,6 @@ namespace shopLocal.Data.Migrations
                     b.HasKey("UserId", "RoleId");
 
                     b.ToTable("AppUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = new Guid("78bde05a-0a88-4a2e-a915-7646c4d8d4b9"),
-                            RoleId = new Guid("0d410fd9-a1e9-4b52-9a9c-4accf8132473")
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
@@ -180,16 +175,6 @@ namespace shopLocal.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AppRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("0d410fd9-a1e9-4b52-9a9c-4accf8132473"),
-                            ConcurrencyStamp = "65d4cb8b-804f-4409-9650-e956349c1084",
-                            Description = "Adminnistrator role",
-                            Name = "admin",
-                            NormalizedName = "admin"
-                        });
                 });
 
             modelBuilder.Entity("shopLocal.Data.Entities.AppUser", b =>
@@ -256,27 +241,6 @@ namespace shopLocal.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AppUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("78bde05a-0a88-4a2e-a915-7646c4d8d4b9"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "881d4285-ce21-44cc-95f6-e6f58c4e2afa",
-                            Dob = new DateTime(1999, 10, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "tuanh.99.2510@gmail.com",
-                            EmailConfirmed = true,
-                            FirstName = "Tuan",
-                            LastName = "Anh",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ta25@gmial.com",
-                            NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEO/kO7xsCxGCSRf12p8jVboo2hlc9BiJCF11ZtOj+cmzxhyqXK3FDQTUXWHkF2h5Og==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "",
-                            TwoFactorEnabled = false,
-                            UserName = "admin"
-                        });
                 });
 
             modelBuilder.Entity("shopLocal.Data.Entities.Cart", b =>
@@ -522,7 +486,7 @@ namespace shopLocal.Data.Migrations
                     b.Property<DateTime>("OrderDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 11, 9, 17, 7, 8, 541, DateTimeKind.Local).AddTicks(8281));
+                        .HasDefaultValue(new DateTime(2022, 11, 9, 16, 26, 24, 642, DateTimeKind.Local).AddTicks(6659));
 
                     b.Property<string>("ShipAddress")
                         .IsRequired()
@@ -617,7 +581,7 @@ namespace shopLocal.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2022, 11, 9, 17, 7, 8, 544, DateTimeKind.Local).AddTicks(3843),
+                            DateCreated = new DateTime(2022, 11, 9, 16, 26, 24, 644, DateTimeKind.Local).AddTicks(9361),
                             OriginalPrice = 100000m,
                             Price = 200000m,
                             Stock = 0,

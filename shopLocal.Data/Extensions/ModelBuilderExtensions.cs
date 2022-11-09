@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using shopLocal.Data.Entities;
 using shopLocal.Data.Enums;
 using System;
@@ -65,6 +66,39 @@ namespace shopLocal.Data.Extensions
             modelBuilder.Entity<ProductInCategory>().HasData(
                 new ProductInCategory() { ProductId = 1, CategoryId=1 }
                 );
+            
+            var roleId= Guid.NewGuid();
+            var adminId = Guid.NewGuid();
+            modelBuilder.Entity<AppRole>().HasData(new AppRole
+            {
+                Id= roleId,
+                Name= "admin",
+                NormalizedName = "admin",
+                Description = "Adminnistrator role"
+            });
+
+            var hasher = new PasswordHasher<AppUser>();
+            modelBuilder.Entity<AppUser>().HasData(new AppUser
+            {
+                Id = adminId,
+                UserName= "admin",
+                NormalizedUserName= "admin",
+                Email="tuanh.99.2510@gmail.com",
+                NormalizedEmail="ta25@gmial.com",
+                EmailConfirmed=true,
+                PasswordHash = hasher.HashPassword(null, "Abc123"),
+                SecurityStamp= String.Empty,
+                FirstName= "Tuan",
+                LastName="Anh",
+                Dob = new DateTime(1999,10,25)
+            });
+            modelBuilder.Entity<IdentityUserRole<Guid>>().HasData(new IdentityUserRole<Guid>
+                {
+                RoleId = roleId,
+                UserId = adminId
+                });
         }
+
+        
     }
 }

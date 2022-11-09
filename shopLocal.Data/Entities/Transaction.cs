@@ -18,5 +18,7 @@ namespace shopLocal.Data.Entities
         public string Message { get; set; }
         public TransactionStatus Status { set; get; }
         public string Provider { get; set; }
+        public Guid UserId { get; set; }
+        public AppUser AppUser { get; set; }
     }
 }
