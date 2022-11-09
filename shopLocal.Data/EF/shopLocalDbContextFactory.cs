@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace shopLocal.Data.EF
 {
-    public class shopLocalDbContextFactory : IDesignTimeDbContextFactory<shopLocationDbContext>
+    public class shopLocalDbContextFactory : IDesignTimeDbContextFactory<shopLocalDbContext>
     {
-        public shopLocationDbContext CreateDbContext(string[] args)
+        public shopLocalDbContext CreateDbContext(string[] args)
         {
             IConfigurationRoot configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -19,9 +19,9 @@ namespace shopLocal.Data.EF
                 .Build();
             var connectionString = configuration.GetConnectionString("shopLocalDatabase");
                 
-            var optionsBuilder = new DbContextOptionsBuilder<shopLocationDbContext>();
+            var optionsBuilder = new DbContextOptionsBuilder<shopLocalDbContext>();
             optionsBuilder.UseSqlServer(connectionString);
-            return new shopLocationDbContext(optionsBuilder.Options);
+            return new shopLocalDbContext(optionsBuilder.Options);
         }
     }
 }
