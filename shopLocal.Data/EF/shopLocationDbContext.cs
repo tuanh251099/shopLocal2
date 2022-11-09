@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace shopLocal.Data.EF
 {
-    public class shopLocationDdContext : DbContext
+    public class shopLocationDbContext : DbContext
     {
-        public shopLocationDdContext(DbContextOptions options) : base(options)
+        public shopLocationDbContext(DbContextOptions options) : base(options)
         {
            
         }
