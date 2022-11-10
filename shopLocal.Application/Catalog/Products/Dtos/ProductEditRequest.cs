@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace shopLocal.Application.Catalog.Products.Dtos
 {
-    public class ProductUpdateRequest
+    public class ProductEditRequest
     {
     }
 }
