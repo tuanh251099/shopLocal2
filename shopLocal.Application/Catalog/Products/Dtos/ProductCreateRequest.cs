@@ -8,5 +8,7 @@ namespace shopLocal.Application.Catalog.Products.Dtos
 {
     public class ProductCreateRequest
     {
+        public int Name { get; set; }
+        public decimal Price { get; set; }
     }
 }
