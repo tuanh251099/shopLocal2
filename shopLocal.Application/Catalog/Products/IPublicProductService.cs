@@ -1,4 +1,5 @@
 ﻿using shopLocal.Application.Catalog.Products.Dtos;
+using shopLocal.Application.Catalog.Products.Dtos.Public;
 using shopLocal.Application.Dtos;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,6 @@ namespace shopLocal.Application.Catalog.Products
 {
     public interface IPublicProductService
     {
-        public PagedViewModel<ProductViewModel> GetAllByCategoryId(int categoryId, int PageIndex, int PageSize);
+        public PagedResult<ProductViewModel> GetAllByCategoryId(GetProductPagingRequest request);
     }
 }
