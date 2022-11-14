@@ -8,6 +8,10 @@ namespace shopLocal.Data.Entities
 {
     public class ProductTranslation
     {
+        public decimal Price;
+        public int Stock;
+        public int ViewCount;
+
         public int Id { get; set; }
         public int ProductId { get; set; }
         public string Name { get; set; }
@@ -19,5 +23,6 @@ namespace shopLocal.Data.Entities
         public string LanguageId { get; set; }
         public Product Product { get; set; }
         public Language Language { get; set; }
+        public decimal OriginalPrice { get; set; }
     }
 }
