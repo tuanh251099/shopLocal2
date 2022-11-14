@@ -1,20 +1,11 @@
-﻿using shopLocal.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
+using shopLocal.Data.Entities;
 
-namespace shopLocal.Application.Catalog.Products.Dtos
+namespace shopLocal.ViewModels.Catalog.Products.Manage
 {
-    public class ProductViewModel
+    public class ProductUpdateRequest
     {
         public int Id { get; set; }
-        public decimal Price { get; set; }
-        public decimal OriginalPrice { get; set; }
-        public int Stock { get; set; }
-        public int ViewCount { get; set; }
-        public DateTime DateCreated { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Details { get; set; }
@@ -24,5 +15,6 @@ namespace shopLocal.Application.Catalog.Products.Dtos
         public string LanguageId { get; set; }
         public Product Product { get; set; }
         public Language Language { get; set; }
+        public IFormFile ThumbnailImage { get; set; }
     }
 }
