@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\shopLocal.Data\shopLocal.Data.csproj" />
+    <ProjectReference Include="..\shopLocal.Utilities\shopLocal.Utilities.csproj" />
   </ItemGroup>
 
 </Project>
