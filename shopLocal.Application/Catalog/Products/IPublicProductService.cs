@@ -11,6 +11,6 @@ namespace shopLocal.Application.Catalog.Products
 {
     public interface IPublicProductService
     {
-        public PagedResult<ProductViewModel> GetAllByCategoryId(GetProductPagingRequest request);
+        Task<PagedResult<ProductViewModel>>  GetAllByCategoryId(GetProductPagingRequest request);
     }
 }

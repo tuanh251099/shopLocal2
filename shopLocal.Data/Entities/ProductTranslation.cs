@@ -8,9 +8,9 @@ namespace shopLocal.Data.Entities
 {
     public class ProductTranslation
     {
-        public decimal Price;
-        public int Stock;
-        public int ViewCount;
+        public decimal Price { get; set; }
+        public int Stock { get; set; }
+        public int ViewCount { get; set; }
 
         public int Id { get; set; }
         public int ProductId { get; set; }
