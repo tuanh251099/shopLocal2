@@ -1,19 +1,17 @@
-﻿using System;
+﻿using shopLocal.Data.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace shopLocal.Data.Entities
+namespace shopLocal.Application.Catalog.Products.Dtos.Manage
 {
-    public class ProductTranslation
+    public class ProductCreateRequest
     {
-        public decimal Price;
-        public int Stock;
-        public int ViewCount;
-
-        public int Id { get; set; }
-        public int ProductId { get; set; }
+        public decimal Price { get; set; }
+        public decimal OriginalPrice { get; set; }
+        public int Stock { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Details { get; set; }
@@ -21,8 +19,5 @@ namespace shopLocal.Data.Entities
         public string SeoTitle { get; set; }
         public string SeoAlias { get; set; }
         public string LanguageId { get; set; }
-        public Product Product { get; set; }
-        public Language Language { get; set; }
-        public decimal OriginalPrice { get; set; }
     }
 }
