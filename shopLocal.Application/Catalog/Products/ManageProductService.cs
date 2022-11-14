@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using shopLocal.Application.Catalog.Products.Dtos;
-using shopLocal.Application.Catalog.Products.Dtos.Manage;
-using shopLocal.Application.Dtos;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using shopLocal.Data.EF;
 using shopLocal.Data.Entities;
 using shopLocal.Utilities.Exceptions;
+using shopLocal.ViewModels.Catalog.Products;
+using shopLocal.ViewModels.Catalog.Products.Manage;
+using shopLocal.ViewModels.Common;
+using System.Net.Http.Headers;
 
 namespace shopLocal.Application.Catalog.Products
 {
@@ -46,6 +48,8 @@ namespace shopLocal.Application.Catalog.Products
                     }
                 }
             };
+            // Save Image
+
             _context.Products.Add(product);
             return await _context.SaveChangesAsync();
         }
@@ -106,7 +110,7 @@ namespace shopLocal.Application.Catalog.Products
             return pageResult;
         }
 
-        public async Task<int> Update(Dtos.Manage.ProductUpdateRequest request)
+        public async Task<int> Update(ProductUpdateRequest request)
         {
             var product = await _context.Products.FindAsync(request.Id);
             var productTranslations = await _context.ProductTranslations.FirstOrDefaultAsync(x => x.ProductId == request.Id 
@@ -136,9 +140,11 @@ namespace shopLocal.Application.Catalog.Products
             product.Stock += addedQuantity;
             return await _context.SaveChangesAsync() > 0;
         }
-        public Task<List<ProductViewModel>> GetAll()
+        private async Task<string> SaveFile(IFormFile file)
         {
-            throw new NotImplementedException();
+            var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+            var fileName = $"{Guid.NewGuid}{Path.GetExtension(originalFileName)}";
+            await 
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿using shopLocal.Application.Catalog.Products.Dtos;
-using shopLocal.Application.Catalog.Products.Dtos.Manage;
-using shopLocal.Application.Dtos;
+﻿using shopLocal.ViewModels.Catalog.Products;
+using shopLocal.ViewModels.Catalog.Products.Manage;
+using shopLocal.ViewModels.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ namespace shopLocal.Application.Catalog.Products
     public interface IManagedProductService
     {
         Task<int> Create(ProductCreateRequest request);
-        Task<int> Update(Dtos.Manage.ProductUpdateRequest request);
+        Task<int> Update(ProductUpdateRequest request);
         Task<int> Delete( int productId);
         Task<bool> UpdatePrice(int ProductId, decimal newPrice);
         Task<bool> UpdateStock(int ProductId, int addedQuantity);
