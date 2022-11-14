@@ -18,7 +18,7 @@ namespace shopLocal.Application.Catalog.Products
         Task<bool> UpdatePrice(int ProductId, decimal newPrice);
         Task<bool> UpdateStock(int ProductId, int addedQuantity);
         Task AddViewcount(int ProductId);
-        Task<List<ProductViewModel>> GetAll();
+        //Task<List<ProductViewModel>> GetAll();
         Task<PagedResult<ProductViewModel>> GetAllPaging(GetProductPagingRequest request);
     }
 }

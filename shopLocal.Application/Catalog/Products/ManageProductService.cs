@@ -53,14 +53,9 @@ namespace shopLocal.Application.Catalog.Products
         public async Task<int> Delete(int productId)
         {
             var product = await _context.Products.FindAsync(productId);
-            if (product == null) throw new shopLocalException("Can not find a product : {productId}");
+            if (product == null) throw new shopLocalException($"Can not find a product : {productId}");
             _context.Products.Remove(product);
             return await _context.SaveChangesAsync();
-        }
-
-        public Task<List<ProductViewModel>> GetAll()
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<PagedResult<ProductViewModel>> GetAllPaging(GetProductPagingRequest request)
@@ -75,10 +70,11 @@ namespace shopLocal.Application.Catalog.Products
             //filter
             if (!string.IsNullOrEmpty(request.Keyword))
                 query = query.Where(x => x.pt.Name.Contains(request.Keyword));
-            if (request.CategoryId.Count > 0)
+            if (request.CategoryIds.Count > 0)
             {
-                query = query.Where(p => request.CategoryId.Contains(p.pic.CategoryId));
+                query = query.Where(p => request.CategoryIds.Contains(p.pic.CategoryId));
             }
+            //CategogyIds???
 
             //Paging
             int totalRow = await query.CountAsync();
@@ -110,17 +106,37 @@ namespace shopLocal.Application.Catalog.Products
             return pageResult;
         }
 
-        public Task<int> Update(Dtos.Manage.ProductUpdateRequest request)
+        public async Task<int> Update(Dtos.Manage.ProductUpdateRequest request)
         {
-            throw new NotImplementedException();
+            var product = await _context.Products.FindAsync(request.Id);
+            var productTranslations = await _context.ProductTranslations.FirstOrDefaultAsync(x => x.ProductId == request.Id 
+                                                                                        && x.LanguageId == request.LanguageId);
+            if (product == null || productTranslations == null) throw new shopLocalException($"Can not find a product with id :{request.Id}");
+            productTranslations.Name = request.Name;
+            productTranslations.SeoAlias = request.SeoAlias;
+            productTranslations.SeoDescription = request.SeoDescription;
+            productTranslations.SeoTitle = request.SeoTitle;
+            productTranslations.Description = request.Description;
+            productTranslations.Details = request.Details;
+            return await _context.SaveChangesAsync();
         }
 
-        public Task<bool> UpdatePrice(int ProductId, decimal newPrice)
+        public async Task<bool> UpdatePrice(int productId, decimal newPrice)
         {
-            throw new NotImplementedException();
+            var product = await _context.Products.FindAsync(productId);
+            if (product == null) throw new shopLocalException($"Can not find a product with id :{productId}");
+            product.Price = newPrice;
+            return await _context.SaveChangesAsync() > 0;
         }
 
-        public Task<bool> UpdateStock(int ProductId, int addedQuantity)
+        public async Task<bool> UpdateStock(int productId, int addedQuantity)
+        {
+            var product = await _context.Products.FindAsync(productId);
+            if (product == null) throw new shopLocalException($"Can not find a product with id :{productId}");
+            product.Stock += addedQuantity;
+            return await _context.SaveChangesAsync() > 0;
+        }
+        public Task<List<ProductViewModel>> GetAll()
         {
             throw new NotImplementedException();
         }
