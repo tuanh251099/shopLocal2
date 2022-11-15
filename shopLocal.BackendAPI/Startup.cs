@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using shopLocal.Application.Catalog.Products;
 using shopLocal.Data.EF;
 using shopLocal.Utilities.Constants;
@@ -34,14 +35,14 @@ namespace eShopSolution.BackendApi
             services.AddTransient<IPublicProductService, PublicProductService>();
             services.AddControllersWithViews();
 
-           // services.AddSwaggerGen(c =>
-           // {
-           //     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Swagger eShop Solution", Version = "v1" });
-          //  });
-        }
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Swagger shopLocal", Version = "v1" });
+            });
+         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        /*public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -64,7 +65,7 @@ namespace eShopSolution.BackendApi
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger eShopSolution V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger shopLocal V1");
             });
 
             app.UseEndpoints(endpoints =>
@@ -73,6 +74,6 @@ namespace eShopSolution.BackendApi
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-        }*/
+        }
     }
 }
