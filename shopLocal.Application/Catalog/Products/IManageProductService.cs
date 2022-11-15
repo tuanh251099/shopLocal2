@@ -10,11 +10,12 @@ using System.Threading.Tasks;
 
 namespace shopLocal.Application.Catalog.Products
 {
-    public interface IManagedProductService
+    public interface IManageProductService
     {
         Task<int> Create(ProductCreateRequest request);
         Task<int> Update(ProductUpdateRequest request);
         Task<int> Delete( int productId);
+        Task<ProductViewModel> GetById( int productId); 
         Task<bool> UpdatePrice(int ProductId, decimal newPrice);
         Task<bool> UpdateStock(int ProductId, int addedQuantity);
         Task AddViewcount(int ProductId);

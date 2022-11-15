@@ -14,7 +14,7 @@ using System.Net.Http.Headers;
 
 namespace shopLocal.Application.Catalog.Products
 {
-    public class ManageProductService : IManagedProductService
+    public class ManageProductService : IManageProductService
     {
         private readonly shopLocalDbContext _context;
         private readonly IStorageService _storageService;
@@ -24,7 +24,7 @@ namespace shopLocal.Application.Catalog.Products
             _storageService = storageService;   
         }
 
-        public Task<int> AddImages(int productId, List<IFormFile> files)
+        public async Task<int> AddImages(int productId, List<IFormFile> files)
         {
             throw new NotImplementedException();
         }
@@ -71,7 +71,8 @@ namespace shopLocal.Application.Catalog.Products
                 }
             }
             _context.Products.Add(product);
-            return await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
+            return product.Id;
         }
 
         public async Task<int> Delete(int productId)
@@ -134,6 +135,11 @@ namespace shopLocal.Application.Catalog.Products
                 Items = data
             };
             return pageResult;
+        }
+
+        public Task<ProductViewModel> GetById(int productId)
+        {
+            throw new NotImplementedException();
         }
 
         public Task<List<ProductImageViewModel>> GetListImage(int productId)
