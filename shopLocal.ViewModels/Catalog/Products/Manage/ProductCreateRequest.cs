@@ -20,6 +20,7 @@ namespace shopLocal.ViewModels.Catalog.Products.Manage
         public string SeoTitle { get; set; }
         public string SeoAlias { get; set; }
         public string LanguageId { get; set; }
-        public IFormFile ThumbnailImage { get; set; } 
+        public IFormFile ThumbnailImage { get; set; }
+        public int Id { get; set; }
     }
 }

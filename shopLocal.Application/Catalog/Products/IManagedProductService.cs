@@ -1,4 +1,5 @@
-﻿using shopLocal.ViewModels.Catalog.Products;
+﻿using Microsoft.AspNetCore.Http;
+using shopLocal.ViewModels.Catalog.Products;
 using shopLocal.ViewModels.Catalog.Products.Manage;
 using shopLocal.ViewModels.Common;
 using System;
@@ -6,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using GetProductPagingRequest = shopLocal.ViewModels.Catalog.Products.Manage.GetProductPagingRequest;
 
 namespace shopLocal.Application.Catalog.Products
 {
@@ -20,5 +21,9 @@ namespace shopLocal.Application.Catalog.Products
         Task AddViewcount(int ProductId);
         //Task<List<ProductViewModel>> GetAll();
         Task<PagedResult<ProductViewModel>> GetAllPaging(GetProductPagingRequest request);
+        Task<int> AddImages(int productId, List<IFormFile> files);
+        Task<int> RemoveImages(int imageId );
+        Task<int> UpdateImages(int imageId, string caption, bool isDefault);
+        Task<List<ProductImageViewModel>> GetListImage(int productId);
     }
 }

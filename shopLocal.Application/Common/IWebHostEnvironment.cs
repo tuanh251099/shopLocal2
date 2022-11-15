@@ -2,5 +2,6 @@
 {
     public interface IWebHostEnvironment
     {
+        string WebRootPath { get; set; }
     }
 }
