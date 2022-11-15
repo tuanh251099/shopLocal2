@@ -61,7 +61,7 @@ namespace shopLocal.Data.EF
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Promotion> Promotions { get; set; }
         public DbSet<Transaction> transactions { get; set; }
-
+        public DbSet<ProductImage> ProductImages { get; set; }
 
     }
 }

@@ -13,21 +13,27 @@ namespace shopLocal.Application.Common
         private const string USER_CONTENT_FOLDER_NAME = "user-content";
         public FileStorageService(IWebHostEnvironment webHostEnvironment)
         {
-
+            _userContentFolder = Path.Combine(webHostEnvironment.WebRootPath, USER_CONTENT_FOLDER_NAME);
         }
-        public Task DeleteFileAsync(string fileName)
+        public async Task DeleteFileAsync(string fileName)
         {
-            throw new NotImplementedException();
+            var filePath = Path.Combine(_userContentFolder, fileName);
+            if (File.Exists(filePath))
+            {
+                await Task.Run(() => File.Delete(filePath));
+            }
         }
 
         public string GetFileUrl(string fileName)
         {
-            throw new NotImplementedException();
+            return $"/{USER_CONTENT_FOLDER_NAME}/{fileName}";
         }
 
-        public Task SaveFileAsync(Stream mediaBinaryStream, string fileName)
+        public async Task SaveFileAsync(Stream mediaBinaryStream, string fileName)
         {
-            throw new NotImplementedException();
+            var filePath = Path.Combine(_userContentFolder, fileName);
+            using var output = new FileStream(filePath, FileMode.Create);
+            await mediaBinaryStream.CopyToAsync(output);
         }
     }
 }

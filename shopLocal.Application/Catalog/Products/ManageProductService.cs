@@ -1,11 +1,14 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using shopLocal.Application.Common;
 using shopLocal.Data.EF;
 using shopLocal.Data.Entities;
 using shopLocal.Utilities.Exceptions;
 using shopLocal.ViewModels.Catalog.Products;
 using shopLocal.ViewModels.Catalog.Products.Manage;
 using shopLocal.ViewModels.Common;
+using System;
 using System.Net.Http.Headers;
 
 namespace shopLocal.Application.Catalog.Products
@@ -13,9 +16,16 @@ namespace shopLocal.Application.Catalog.Products
     public class ManageProductService : IManagedProductService
     {
         private readonly shopLocalDbContext _context;
-        public ManageProductService(shopLocalDbContext context)
+        private readonly IStorageService _storageService;
+        public ManageProductService(shopLocalDbContext context, IStorageService storageService)
         {
             _context = context;
+            _storageService = storageService;   
+        }
+
+        public Task<int> AddImages(int productId, List<IFormFile> files)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task AddViewcount(int productId)
@@ -49,7 +59,16 @@ namespace shopLocal.Application.Catalog.Products
                 }
             };
             // Save Image
-
+            if (request.ThumbnailImage != null)
+            {
+                var thumbnailImage = await _context.ProductImages.FirstOrDefaultAsync(i => i.IsDefault == true && i.ProductId == request.Id); 
+                if (thumbnailImage != null)
+                {
+                    thumbnailImage.FileSize = request.ThumbnailImage.Length;
+                    thumbnailImage.ImagePath = await this.SaveFile(request.ThumbnailImage);
+                    _context.ProductImages.Update(thumbnailImage);
+                }
+            }
             _context.Products.Add(product);
             return await _context.SaveChangesAsync();
         }
@@ -58,6 +77,12 @@ namespace shopLocal.Application.Catalog.Products
         {
             var product = await _context.Products.FindAsync(productId);
             if (product == null) throw new shopLocalException($"Can not find a product : {productId}");
+
+            var images = _context.ProductImages.Where(i => i.IsDefault == true && i.ProductId == productId);
+            foreach( var image in images)
+            {
+                await _storageService.DeleteFileAsync(image.ImagePath);
+            }
             _context.Products.Remove(product);
             return await _context.SaveChangesAsync();
         }
@@ -110,6 +135,16 @@ namespace shopLocal.Application.Catalog.Products
             return pageResult;
         }
 
+        public Task<List<ProductImageViewModel>> GetListImage(int productId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> RemoveImages(int imageId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<int> Update(ProductUpdateRequest request)
         {
             var product = await _context.Products.FindAsync(request.Id);
@@ -123,6 +158,11 @@ namespace shopLocal.Application.Catalog.Products
             productTranslations.Description = request.Description;
             productTranslations.Details = request.Details;
             return await _context.SaveChangesAsync();
+        }
+
+        public Task<int> UpdateImages(int imageId, string caption, bool isDefault)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<bool> UpdatePrice(int productId, decimal newPrice)
@@ -144,7 +184,8 @@ namespace shopLocal.Application.Catalog.Products
         {
             var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
             var fileName = $"{Guid.NewGuid}{Path.GetExtension(originalFileName)}";
-            await 
+            await _storageService.SaveFileAsync(file.OpenReadStream(), fileName);
+            return fileName;
         }
     }
 }
