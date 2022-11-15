@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GetProductPagingRequest = shopLocal.ViewModels.Catalog.Products.Manage.GetProductPagingRequest;
 
 namespace shopLocal.Application.Catalog.Products
 {
@@ -20,7 +19,7 @@ namespace shopLocal.Application.Catalog.Products
         Task<bool> UpdateStock(int ProductId, int addedQuantity);
         Task AddViewcount(int ProductId);
         //Task<List<ProductViewModel>> GetAll();
-        Task<PagedResult<ProductViewModel>> GetAllPaging(GetProductPagingRequest request);
+        Task<PagedResult<ProductViewModel>> GetAllPaging(GetManageProductPagingRequest request);
         Task<int> AddImages(int productId, List<IFormFile> files);
         Task<int> RemoveImages(int imageId );
         Task<int> UpdateImages(int imageId, string caption, bool isDefault);

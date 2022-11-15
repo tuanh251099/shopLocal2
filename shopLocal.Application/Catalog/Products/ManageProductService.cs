@@ -11,6 +11,7 @@ using shopLocal.ViewModels.Common;
 using System;
 using System.Net.Http.Headers;
 
+
 namespace shopLocal.Application.Catalog.Products
 {
     public class ManageProductService : IManagedProductService
@@ -87,7 +88,7 @@ namespace shopLocal.Application.Catalog.Products
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<PagedResult<ProductViewModel>> GetAllPaging(GetProductPagingRequest request)
+        public async Task<PagedResult<ProductViewModel>> GetAllPaging(GetManageProductPagingRequest request)
         {
             //select
             var query = from p in _context.Products

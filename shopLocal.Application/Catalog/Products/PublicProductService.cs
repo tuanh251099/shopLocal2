@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using shopLocal.Data.EF;
 using shopLocal.ViewModels.Catalog.Products;
-using shopLocal.ViewModels.Catalog.Products.Public;
 using shopLocal.ViewModels.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace shopLocal.Application.Catalog.Products
 {
@@ -19,7 +19,34 @@ namespace shopLocal.Application.Catalog.Products
             _context = context;
         }
 
-        public async Task<PagedResult<ProductViewModel>> GetAllByCategoryId(GetProductPagingRequest request)
+        public async Task<List<ProductViewModel>> GetAll()
+        {
+            var query = from p in _context.Products
+                        join pt in _context.ProductTranslations on p.Id equals pt.ProductId
+                        join pic in _context.ProductInCategories on p.Id equals pic.ProductId
+                        join c in _context.Categories on pic.CategoryId equals c.Id
+                        select new { p, pic, pt };
+
+            var data = await query.Select(x => new ProductViewModel()
+                                  {
+                                      Id = x.p.Id,
+                                      Name = x.pt.Name,
+                                      DateCreated = x.p.DateCreated,
+                                      Description = x.pt.Description,
+                                      Details = x.pt.Details,
+                                      LanguageId = x.pt.LanguageId,
+                                      OriginalPrice = x.pt.OriginalPrice,
+                                      Price = x.pt.Price,
+                                      SeoAlias = x.pt.SeoAlias,
+                                      SeoDescription = x.pt.SeoDescription,
+                                      SeoTitle = x.pt.SeoTitle,
+                                      Stock = x.pt.Stock,
+                                      ViewCount = x.pt.ViewCount
+                                  }).ToListAsync();
+            return data;
+        }
+
+        public async Task<PagedResult<ProductViewModel>> GetAllByCategoryId(GetPublicProductPagingRequest request)
         {
             // select join
             var query = from p in _context.Products
